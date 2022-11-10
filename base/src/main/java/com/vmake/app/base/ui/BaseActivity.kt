@@ -1,6 +1,7 @@
 package com.vmake.app.base.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.vmake.app.base.helper.EventHelper
@@ -12,7 +13,7 @@ import org.greenrobot.eventbus.ThreadMode
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
     public var binding: B? = null
-    abstract fun makeBinding(): B
+    abstract fun makeBinding(inflater: LayoutInflater): B
 
     abstract fun B.setupView()
     abstract fun B.startFlow()
@@ -25,7 +26,7 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         EventHelper.registerEventBus(this)
         mainLaunch {
             if (binding == null) {
-                binding = makeBinding()
+                binding = makeBinding(layoutInflater)
                 delay(setTimeDelayBeforeShowMillis())
                 binding?.setupView()
                 setContentView(binding?.root)

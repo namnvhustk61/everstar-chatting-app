@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">EverStar Chatting</string>
 
+    <string name="tab_title_files">Friends</string>
+    <string name="tab_title_home">Chat</string>
+    <string name="tab_title_settings">Settings</string>
 </resources>

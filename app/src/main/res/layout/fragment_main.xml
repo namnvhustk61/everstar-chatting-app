@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainFragment">
+    android:background="@color/white"
+    tools:ignore="MissingDefaultResource">
 
-    <TextView
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/padding_tiny"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tabMenu"
+        />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/tabMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.vmake.app.base.view_custom.TabBarItem
+            android:id="@+id/tabHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:activeIcon="@drawable/ic_frg_main_tab_home_active"
+            app:colorTextActive="@color/colorActive"
+            app:colorTextInactive="@color/colorInactive"
+            app:inactiveIcon="@drawable/ic_frg_main_tab_home_inactive"
+            app:size_icon="@dimen/size_icon"
+            app:size_text="@dimen/size_text"
+            app:title="@string/tab_title_home" />
+
+        <com.vmake.app.base.view_custom.TabBarItem
+            android:id="@+id/tabFile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:activeIcon="@drawable/ic_frg_main_tab_files_active"
+            app:colorTextActive="@color/colorActive"
+            app:colorTextInactive="@color/colorInactive"
+            app:inactiveIcon="@drawable/ic_frg_main_tab_files_inactive"
+            app:size_icon="@dimen/size_icon"
+            app:size_text="@dimen/size_text"
+            app:title="@string/tab_title_files" />
+
+        <com.vmake.app.base.view_custom.TabBarItem
+            android:id="@+id/tabSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:activeIcon="@drawable/ic_frg_main_tab_settings_active"
+            app:colorTextActive="@color/colorActive"
+            app:colorTextInactive="@color/colorInactive"
+            app:inactiveIcon="@drawable/ic_frg_main_tab_settings_inactive"
+            app:size_icon="@dimen/size_icon"
+            app:size_text="@dimen/size_text"
+            app:title="@string/tab_title_settings" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

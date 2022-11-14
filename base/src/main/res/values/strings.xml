@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ok">Ok</string>
+    <string name="message_unknown_error">An error occurred.</string>
+    <string name="message_unauthorized">Session has expired.</string>
+    <string name="message_lost_connect_server">Lost connection to server.</string>
+    <string name="message_lost_connect_internet">Lost internet connection.</string>
+
 </resources>

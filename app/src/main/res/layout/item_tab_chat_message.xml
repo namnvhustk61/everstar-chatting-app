@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:paddingVertical="@dimen/padding_tiny"
+    >
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/size_icon_big"
+        android:layout_height="@dimen/size_icon_big"
+        android:background="@drawable/background_circle_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/padding_medium"
+        tools:src="@drawable/ic_feed_24"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLineCenterVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.vmake.app.base.view_custom.MyTextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text_normal"
+        android:textColor="@color/text_black"
+        tools:text="Jone"
+        android:textStyle="bold"
+        android:lines="1"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding"
+
+        app:layout_constraintBottom_toTopOf="@id/gLineCenterVertical"
+        app:layout_constraintStart_toEndOf="@+id/imgAvatar"
+        app:layout_constraintEnd_toStartOf="@+id/tvTime"
+        />
+
+    <com.vmake.app.base.view_custom.MyTextView
+        android:id="@+id/tvContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text"
+        android:textColor="@color/text_gray"
+        tools:text="Content"
+        android:textStyle="normal"
+        android:lines="1"
+        app:layout_constraintEnd_toStartOf="@+id/tvNumbNewContent"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding"
+        app:layout_constraintTop_toBottomOf="@id/gLineCenterVertical"
+        app:layout_constraintStart_toEndOf="@+id/imgAvatar"
+        />
+
+    <com.vmake.app.base.view_custom.MyTextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text"
+        android:textColor="@color/text_gray"
+        tools:text="10:30"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvName"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName"
+        />
+
+    <com.vmake.app.base.view_custom.MyTextView
+        android:id="@+id/tvNumbNewContent"
+        android:layout_width="@dimen/size_icon_tiny"
+        android:layout_height="@dimen/size_icon_tiny"
+        android:textSize="@dimen/size_text"
+        android:textColor="@color/white"
+        tools:text="1"
+        android:gravity="center"
+        android:background="@drawable/background_circle_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvContent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvContent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

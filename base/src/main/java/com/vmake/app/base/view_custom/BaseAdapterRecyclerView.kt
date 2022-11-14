@@ -5,8 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapterRecyclerView<VH : RecyclerView.ViewHolder, T> :
-    RecyclerView.Adapter<VH>() {
+abstract class BaseAdapterRecyclerView<T> :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_NULL = 0

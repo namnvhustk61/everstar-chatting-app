@@ -11,7 +11,7 @@ import com.vmake.app.everstarchatting.ui.tab_setting.TabSettingsFragment
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override var isModeChangeStatusBar: Boolean = true
-    override var isSetNoStatusBar: Boolean = true
+    override var isSetNoStatusBar: Boolean = false
 
     override fun makeBinding(inflater: LayoutInflater) = FragmentMainBinding.inflate(inflater)
 

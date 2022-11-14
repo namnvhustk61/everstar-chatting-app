@@ -39,18 +39,13 @@
         app:layout_constraintTop_toTopOf="@id/tvHello" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvHortFriends"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_great"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvChatList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_great"
-        app:layout_constraintTop_toBottomOf="@+id/rcvHortFriends" />
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_tiny"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

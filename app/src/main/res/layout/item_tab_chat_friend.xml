@@ -31,6 +31,5 @@
         android:textSize="@dimen/size_text"
         android:textColor="@color/text_black"
         tools:text="Jone"
-        android:textStyle="bold"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

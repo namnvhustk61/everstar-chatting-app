@@ -16,13 +16,11 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
 
     override fun makeBinding(inflater: LayoutInflater) = FragmentTabChatBinding.inflate(inflater)
 
-    private val adapterListFriend = ListFriendAdapter.newInstance()
     private val adapterListMessage = ListMessageAdapter.newInstance()
 
     private val tabChatViewModel: TabChatViewModel by viewModels()
 
     override fun FragmentTabChatBinding.setupView() {
-        setupRecycleListFriend()
         setupRecycleListMessage()
     }
 
@@ -30,7 +28,7 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
         tabChatViewModel.fetchListFriendViewState.notNullObserve(this@TabChatFragment) {
             when (it.status) {
                 ViewStatus.Success -> {
-                    adapterListFriend.submit(it.data)
+                    adapterListMessage.adapterListFriend.submit(it.data)
                 }
             }
         }
@@ -48,12 +46,6 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
         super.onResume()
         tabChatViewModel.fetchListFriend()
         tabChatViewModel.fetchListMessage()
-    }
-
-    private fun FragmentTabChatBinding.setupRecycleListFriend() {
-        rcvHortFriends.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        rcvHortFriends.adapter = adapterListFriend
     }
 
     private fun FragmentTabChatBinding.setupRecycleListMessage() {

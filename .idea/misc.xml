@@ -6,7 +6,10 @@
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1865" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/background_circle_blue.xml" value="0.2105" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/background_circle_gray.xml" value="0.1935" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/background_red_light_radius.xml" value="0.125" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/background_white_radius.xml" value="0.125" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/ic_baseline_feed_24.xml" value="0.346" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/ic_delete_red.xml" value="0.125" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/ic_feed_24.xml" value="0.1735" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/ic_frg_main_tab_files_active.xml" value="0.282" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1865" />
@@ -18,9 +21,12 @@
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/fragment_tab_friends.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/fragment_tab_settings.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/item_tab_chat_friend.xml" value="0.3614583333333333" />
-        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/item_tab_chat_message.xml" value="0.25" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/item_tab_chat_message.xml" value="0.2" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/item_tab_chat_recycle_friend.xml" value="0.2564814814814815" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/layout/item_tab_chat_view_type_recycle_friend.xml" value="0.29814814814814816" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.189" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.189" />
+        <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/base/src/main/res/drawable/background_white_radius.xml" value="0.125" />
         <entry key="..\:/Users/pc/Documents/__EverStar/everstar-chatting-app/base/src/main/res/drawable/empty_image.xml" value="0.2125" />
       </map>
     </option>

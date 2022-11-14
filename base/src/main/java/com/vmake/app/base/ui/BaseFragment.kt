@@ -12,7 +12,6 @@ import com.vmake.app.base.helper.StatusBarHelper
 import com.vmake.app.base.helper.hideKeyboard
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     abstract fun makeBinding(inflater: LayoutInflater): B

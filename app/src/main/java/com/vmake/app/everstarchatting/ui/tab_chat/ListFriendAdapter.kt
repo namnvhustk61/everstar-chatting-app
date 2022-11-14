@@ -9,16 +9,28 @@ import com.vmake.app.base.view_custom.BaseDiffCallBack
 import com.vmake.app.everstarchatting.databinding.ItemTabChatFriendBinding
 import com.vmake.app.everstarchatting.repository.friend.model.Friend
 
+interface ImplListFriendAdapter {
+    fun onClickItem(position: Int)
+}
+
 class ListFriendAdapter private constructor() : BaseAdapterRecyclerView<Friend>() {
 
+    private var action: ImplListFriendAdapter? = null
 
     companion object {
-        fun newInstance() = ListFriendAdapter()
+        fun newInstance(action: ImplListFriendAdapter? = null) = ListFriendAdapter().apply {
+            this.action = action
+        }
 
         private class FriendViewHolder(val binding: ItemTabChatFriendBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
-            fun bindData(position: Int, model: Friend) {
+            fun bindData(position: Int, model: Friend, action: ImplListFriendAdapter?) {
+                action?.let {
+                    binding.root.setOnClickListener {
+                        action.onClickItem(position)
+                    }
+                }
                 binding.tvName.text = model.getName()
                 binding.imgAvatar.loadImage(model.getUrlAvatar(), isCircle = true)
             }
@@ -35,7 +47,7 @@ class ListFriendAdapter private constructor() : BaseAdapterRecyclerView<Friend>(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FriendViewHolder) {
-            holder.bindData(position, data[position])
+            holder.bindData(position, data[position], action)
         }
     }
 

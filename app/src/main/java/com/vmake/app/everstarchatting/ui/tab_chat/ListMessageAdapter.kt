@@ -18,18 +18,29 @@ import com.vmake.app.everstarchatting.databinding.ItemTabChatMessageBinding
 import com.vmake.app.everstarchatting.databinding.ItemTabChatViewTypeRecycleFriendBinding
 import com.vmake.app.everstarchatting.repository.message.model.Message
 
+interface ImplListMessageAdapter {
+    fun onClickItem(position: Int)
+}
+
 class ListMessageAdapter private constructor() : BaseAdapterRecyclerView<Message>() {
+
+    private var action: ImplListMessageAdapter? = null
 
     companion object {
         val VIEW_TYPE_RECYCLE_FRIEND = 0
         val VIEW_TYPE_ITEM_MESSAGE = 1
 
-        fun newInstance() = ListMessageAdapter()
+        fun newInstance(action: ImplListMessageAdapter? = null) = ListMessageAdapter().apply {
+            this.action = action
+        }
 
         private class MessageViewHolder(val binding: ItemTabChatMessageBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
-            fun bindData(position: Int, model: Message) {
+            fun bindData(position: Int, model: Message, action: ImplListMessageAdapter?) {
+                action?.let {
+                    binding.root.setOnClickListener { action.onClickItem(position) }
+                }
                 binding.tvName.text = model.getName()
                 binding.tvTime.text =
                     model.getTime().formatTime().formatHHmm() ?: getTimeNow().formatHHmm()
@@ -105,7 +116,7 @@ class ListMessageAdapter private constructor() : BaseAdapterRecyclerView<Message
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MessageViewHolder) {
-            holder.bindData(position, data[position - 1])
+            holder.bindData(position, data[position - 1], action)
         }
         if (holder is RecycleFriendViewHolder) {
             holder.setupRecycleListFriend(adapterListFriend)

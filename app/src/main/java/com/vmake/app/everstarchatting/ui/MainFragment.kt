@@ -23,6 +23,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override fun FragmentMainBinding.startFlow() {
 
+
     }
 
     private fun FragmentMainBinding.setPagerAdapter() {

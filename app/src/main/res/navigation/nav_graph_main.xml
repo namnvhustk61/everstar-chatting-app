@@ -9,6 +9,17 @@
         android:name="com.vmake.app.everstarchatting.ui.MainFragment"
         android:label="MainFragment">
 
+        <action
+            android:id="@+id/action_mainFragment_to_screenChatFragment"
+            app:destination="@id/screenChatFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/screenChatFragment"
+        android:name="com.vmake.app.everstarchatting.ui.screen_chat.ScreenChatFragment"
+        android:label="ScreenChatFragment">
+
     </fragment>
 
 </navigation>

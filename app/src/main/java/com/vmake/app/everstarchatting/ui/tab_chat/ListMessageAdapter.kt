@@ -22,16 +22,20 @@ interface ImplListMessageAdapter {
     fun onClickItem(position: Int)
 }
 
-class ListMessageAdapter private constructor() : BaseAdapterRecyclerView<Message>() {
+class ListMessageAdapter private constructor(private val adapterListFriend: ListFriendAdapter) :
+    BaseAdapterRecyclerView<Message>() {
 
-    private var action: ImplListMessageAdapter? = null
+    private var implActionMessage: ImplListMessageAdapter? = null
 
     companion object {
         val VIEW_TYPE_RECYCLE_FRIEND = 0
         val VIEW_TYPE_ITEM_MESSAGE = 1
 
-        fun newInstance(action: ImplListMessageAdapter? = null) = ListMessageAdapter().apply {
-            this.action = action
+        fun newInstance(
+            adapterListFriend: ListFriendAdapter,
+            implActionMessage: ImplListMessageAdapter? = null,
+            ) = ListMessageAdapter(adapterListFriend).apply {
+            this.implActionMessage = implActionMessage
         }
 
         private class MessageViewHolder(val binding: ItemTabChatMessageBinding) :
@@ -73,9 +77,6 @@ class ListMessageAdapter private constructor() : BaseAdapterRecyclerView<Message
         }
     }
 
-    val adapterListFriend = ListFriendAdapter.newInstance()
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
 
@@ -116,7 +117,7 @@ class ListMessageAdapter private constructor() : BaseAdapterRecyclerView<Message
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MessageViewHolder) {
-            holder.bindData(position, data[position - 1], action)
+            holder.bindData(position, data[position - 1], implActionMessage)
         }
         if (holder is RecycleFriendViewHolder) {
             holder.setupRecycleListFriend(adapterListFriend)

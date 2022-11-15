@@ -12,6 +12,7 @@ import com.vmake.app.base.helper.StatusBarHelper
 import com.vmake.app.base.helper.hideKeyboard
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     abstract fun makeBinding(inflater: LayoutInflater): B
@@ -24,6 +25,8 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     protected open var isModeChangeStatusBar: Boolean = false
 
     protected open fun isScreen(): Boolean = true
+    protected open val isAlwaysCreateView: Boolean = false
+    //todo java.lang.IllegalStateException: Expected the adapter to be 'fresh' while restoring state.
 
     protected open fun onBackPress() {}
     protected open fun onReceivedEvent(event: Any?) {}
@@ -42,7 +45,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (binding == null) {
+        if (binding == null || isAlwaysCreateView) {
             needSetupView = true
             binding = makeBinding(inflater)
         } else {
@@ -107,13 +110,13 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     fun hideKeyboard() = hideKeyboard(binding?.root)
 
     protected open fun setNoStatusBar() {
-        if(!isModeChangeStatusBar) return
+        if (!isModeChangeStatusBar) return
         StatusBarHelper.overlayStatusBar(requireActivity(), colorWhiteTextOnStatusBar)
         StatusBarHelper.overlayNavigatorBar(requireActivity(), colorWhiteTextOnStatusBar)
     }
 
     protected open fun clearOverlayBar() {
-        if(!isModeChangeStatusBar) return
+        if (!isModeChangeStatusBar) return
         StatusBarHelper.setClearOverlay(requireActivity(), !colorWhiteTextOnStatusBar)
     }
 }

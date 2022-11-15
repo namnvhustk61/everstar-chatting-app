@@ -1,6 +1,6 @@
-package com.vmake.app.everstarchatting.repository.message.model
+package com.vmake.app.everstarchatting.repository.conversation.model
 
-data class Message(
+data class Conversation(
     private val urlAvatar: String?,
     private val name: String?,
     private val content: String?,
@@ -14,3 +14,5 @@ data class Message(
     fun isSeen() = numbYetSeen == 0
     fun getNumbYetSeen() = numbYetSeen
 }
+
+

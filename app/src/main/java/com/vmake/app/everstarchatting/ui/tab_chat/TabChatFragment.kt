@@ -1,6 +1,5 @@
 package com.vmake.app.everstarchatting.ui.tab_chat
 
-import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,7 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
 
     override fun makeBinding(inflater: LayoutInflater) = FragmentTabChatBinding.inflate(inflater)
 
-    private lateinit var adapterListMessage: ListMessageAdapter
+    private lateinit var adapterListConversation: ListConversationAdapter
     private lateinit var adapterListFriend: ListFriendAdapter
 
     private val tabChatViewModel: TabChatViewModel by viewModels()
@@ -36,10 +35,10 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
             }
         }
 
-        tabChatViewModel.fetchListMessageViewState.notNullObserve(this@TabChatFragment) {
+        tabChatViewModel.fetchListConversationViewState.notNullObserve(this@TabChatFragment) {
             when (it.status) {
                 ViewStatus.Success -> {
-                    adapterListMessage.submit(it.data)
+                    adapterListConversation.submit(it.data)
                 }
             }
         }
@@ -48,28 +47,32 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
     override fun onResume() {
         super.onResume()
         tabChatViewModel.fetchListFriend()
-        tabChatViewModel.fetchListMessage()
+        tabChatViewModel.fetchListConversation()
     }
 
     private fun FragmentTabChatBinding.setupRecycleListMessage() {
         adapterListFriend = ListFriendAdapter.newInstance(
             action = object : ImplListFriendAdapter {
                 override fun onClickItem(position: Int) {
-                    gotoScreenChatFragment()
+                    tabChatViewModel.getFriendByPos(position)?.let {
+                        gotoScreenChatFragment(user = it.getName(), urlAvatar = it.getUrlAvatar())
+                    }
                 }
             }
         )
 
-        adapterListMessage = ListMessageAdapter.newInstance(
+        adapterListConversation = ListConversationAdapter.newInstance(
             adapterListFriend,
             implActionMessage = object : ImplListMessageAdapter {
                 override fun onClickItem(position: Int) {
-                    gotoScreenChatFragment()
+                    tabChatViewModel.getConversationByPos(position)?.let {
+                        gotoScreenChatFragment(user = it.getName(), urlAvatar = it.getUrlAvatar())
+                    }
                 }
             }
         )
         rcvChatList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rcvChatList.adapter = adapterListMessage
+        rcvChatList.adapter = adapterListConversation
     }
 }

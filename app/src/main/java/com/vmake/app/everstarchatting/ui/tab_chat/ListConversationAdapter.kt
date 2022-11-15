@@ -14,16 +14,16 @@ import com.vmake.app.base.helper.loadImage
 import com.vmake.app.base.view_custom.BaseAdapterRecyclerView
 import com.vmake.app.base.view_custom.BaseDiffCallBack
 import com.vmake.app.everstarchatting.R
-import com.vmake.app.everstarchatting.databinding.ItemTabChatMessageBinding
+import com.vmake.app.everstarchatting.databinding.ItemTabChatConversationBinding
 import com.vmake.app.everstarchatting.databinding.ItemTabChatViewTypeRecycleFriendBinding
-import com.vmake.app.everstarchatting.repository.message.model.Message
+import com.vmake.app.everstarchatting.repository.conversation.model.Conversation
 
 interface ImplListMessageAdapter {
     fun onClickItem(position: Int)
 }
 
-class ListMessageAdapter private constructor(private val adapterListFriend: ListFriendAdapter) :
-    BaseAdapterRecyclerView<Message>() {
+class ListConversationAdapter private constructor(private val adapterListFriend: ListFriendAdapter) :
+    BaseAdapterRecyclerView<Conversation>() {
 
     private var implActionMessage: ImplListMessageAdapter? = null
 
@@ -34,14 +34,14 @@ class ListMessageAdapter private constructor(private val adapterListFriend: List
         fun newInstance(
             adapterListFriend: ListFriendAdapter,
             implActionMessage: ImplListMessageAdapter? = null,
-            ) = ListMessageAdapter(adapterListFriend).apply {
+        ) = ListConversationAdapter(adapterListFriend).apply {
             this.implActionMessage = implActionMessage
         }
 
-        private class MessageViewHolder(val binding: ItemTabChatMessageBinding) :
+        private class MessageViewHolder(val binding: ItemTabChatConversationBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
-            fun bindData(position: Int, model: Message, action: ImplListMessageAdapter?) {
+            fun bindData(position: Int, model: Conversation, action: ImplListMessageAdapter?) {
                 action?.let {
                     binding.root.setOnClickListener { action.onClickItem(position) }
                 }
@@ -87,7 +87,7 @@ class ListMessageAdapter private constructor(private val adapterListFriend: List
             )
 
             VIEW_TYPE_ITEM_MESSAGE -> MessageViewHolder(
-                ItemTabChatMessageBinding.inflate(
+                ItemTabChatConversationBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
@@ -103,21 +103,22 @@ class ListMessageAdapter private constructor(private val adapterListFriend: List
 
     override fun getItemCount() = data.size + 1
 
-    override var diffCallback: BaseDiffCallBack<Message>? = object : BaseDiffCallBack<Message>() {
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].getUrlAvatar()
-                .equals(newList[newItemPosition].getUrlAvatar())
-        }
+    override var diffCallback: BaseDiffCallBack<Conversation>? =
+        object : BaseDiffCallBack<Conversation>() {
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return oldList[oldItemPosition].getUrlAvatar()
+                    .equals(newList[newItemPosition].getUrlAvatar())
+            }
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] === newList[newItemPosition]
-        }
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return oldList[oldItemPosition] === newList[newItemPosition]
+            }
 
-    }
+        }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MessageViewHolder) {
-            holder.bindData(position, data[position - 1], implActionMessage)
+            holder.bindData(position - 1, data[position - 1], implActionMessage)
         }
         if (holder is RecycleFriendViewHolder) {
             holder.setupRecycleListFriend(adapterListFriend)

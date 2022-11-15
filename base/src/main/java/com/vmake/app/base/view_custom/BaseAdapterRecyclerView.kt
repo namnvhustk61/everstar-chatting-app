@@ -58,6 +58,14 @@ abstract class BaseAdapterRecyclerView<T> :
         callBack?.run()
     }
 
+    fun add(list: T, callBack: Runnable? = null) {
+        if (list == null) return
+
+        data.apply { add(list) }
+        notifyItemInserted(data.size -1)
+        callBack?.run()
+    }
+
     fun removeItem(position: Int) {
         if (position >= data.size) {
             return

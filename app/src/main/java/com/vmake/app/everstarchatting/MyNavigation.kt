@@ -12,8 +12,14 @@ fun Fragment.finish() {
     findNavController().navigateUp()
 }
 
-fun <B : ViewBinding> BaseFragment<B>.gotoScreenChatFragment() {
-    navigateTo(MainFragmentDirections.actionMainFragmentToScreenChatFragment())
+fun <B : ViewBinding> BaseFragment<B>.gotoScreenChatFragment(
+    user: String? = null,
+    urlAvatar: String? = null
+) {
+    navigateTo(MainFragmentDirections.actionMainFragmentToScreenChatFragment().apply {
+        arguments.putString("user", user)
+        arguments.putString("urlAvatar", urlAvatar)
+    })
 }
 
 fun <B : ViewBinding> BaseFragment<B>.navigateTo(direction: NavDirections) {

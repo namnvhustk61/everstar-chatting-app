@@ -1,5 +1,6 @@
 package com.vmake.app.everstarchatting.helper
 
+import com.vmake.app.base.helper.runInBackground
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -41,53 +42,60 @@ class SocketClientHelper private constructor() {
     }
 
     suspend fun connect() {
-        if (socket == null) {
-            socket = Socket()
-        }
-        if (port == null) {
-            return
-        }
-        val socketAddress = InetSocketAddress(ip, port!!)
-        try {
-            socket?.connect(socketAddress, TIME_OUT)
-            socketOutput = socket?.getOutputStream()
-            socketInput = BufferedReader(InputStreamReader(socket?.getInputStream()))
+        runInBackground {
+            if (socket == null) {
+                socket = Socket()
+            }
+            if (port == null) {
+                return@runInBackground
+            }
+            val socketAddress = InetSocketAddress(ip, port!!)
+            try {
+                socket?.connect(socketAddress, TIME_OUT)
+                socketOutput = socket?.getOutputStream()
+                socketInput = BufferedReader(InputStreamReader(socket?.getInputStream()))
 
-            if (listener != null) listener?.onConnect(socket)
-            receiveThread()
-        } catch (e: IOException) {
-            if (listener != null) listener?.onConnectError(socket, e.message)
+                if (listener != null) listener?.onConnect(socket)
+                receiveThread()
+            } catch (e: IOException) {
+                if (listener != null) listener?.onConnectError(socket, e.message)
+            }
         }
     }
 
     suspend fun disconnect() {
-        try {
-            socket!!.close()
-        } catch (e: IOException) {
-            if (listener != null) listener!!.onDisconnect(socket, e.message)
+        runInBackground {
+            try {
+                socket!!.close()
+            } catch (e: IOException) {
+                if (listener != null) listener!!.onDisconnect(socket, e.message)
+            }
         }
     }
 
-    fun send(message: String) {
-        try {
-            socketOutput!!.write(message.toByteArray())
-        } catch (e: IOException) {
-            if (listener != null) listener!!.onDisconnect(socket, e.message)
+    suspend fun send(message: String) {
+        runInBackground {
+            try {
+                socketOutput!!.write(message.toByteArray())
+            } catch (e: IOException) {
+                if (listener != null) listener!!.onDisconnect(socket, e.message)
+            }
         }
     }
-
 
     private suspend fun receiveThread() {
-        var message: String?
-        try {
-            while (socketInput!!.readLine()
-                    .also { message = it } != null
-            ) {
-                // each line must end with a \n to be received
-                if (listener != null) listener!!.onMessage(message)
+        runInBackground {
+            var message: String?
+            try {
+                while (socketInput!!.readLine()
+                        .also { message = it } != null
+                ) {
+                    // each line must end with a \n to be received
+                    if (listener != null) listener!!.onMessage(message)
+                }
+            } catch (e: IOException) {
+                if (listener != null) listener!!.onDisconnect(socket, e.message)
             }
-        } catch (e: IOException) {
-            if (listener != null) listener!!.onDisconnect(socket, e.message)
         }
     }
 }

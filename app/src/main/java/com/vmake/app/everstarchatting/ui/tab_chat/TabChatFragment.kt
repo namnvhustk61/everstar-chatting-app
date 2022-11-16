@@ -22,6 +22,7 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
 
     private val tabChatViewModel: TabChatViewModel by viewModels()
 
+
     override fun FragmentTabChatBinding.setupView() {
         setupRecycleListMessage()
     }

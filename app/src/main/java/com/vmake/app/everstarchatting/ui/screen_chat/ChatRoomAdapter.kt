@@ -14,7 +14,7 @@ import com.vmake.app.base.view_custom.BaseAdapterRecyclerView
 import com.vmake.app.base.view_custom.BaseDiffCallBack
 import com.vmake.app.everstarchatting.databinding.RowChatPartnerBinding
 import com.vmake.app.everstarchatting.databinding.RowChatUserBinding
-import com.vmake.app.everstarchatting.repository.message.Message
+import com.vmake.app.everstarchatting.repository.message.model.Message
 
 class ChatRoomAdapter : BaseAdapterRecyclerView<Message>() {
 

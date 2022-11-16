@@ -61,6 +61,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
             needSetupView = false
             binding?.run {
                 setupView()
+                startFlow()
             }
         }
         activity?.onBackPressedDispatcher?.addCallback(
@@ -73,10 +74,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         super.onResume()
         if (isSetNoStatusBar) {
             setNoStatusBar()
-        }
-
-        binding?.run {
-            startFlow()
         }
     }
 

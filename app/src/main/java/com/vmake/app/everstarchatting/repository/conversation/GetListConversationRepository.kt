@@ -14,20 +14,17 @@ class GetListConversationRepository {
             Conversation(
                 "https://cdn.imgbin.com/16/1/11/imgbin-cartoon-funny-animal-cartoon-lion-material-V6giQF0z2jAuBWf8NgBJHFTkB.jpg",
                 "John",
-                "At the moment it seems to be ",
-                numbYetSeen = 2
+                "At the moment it seems to be "
             ),
             Conversation(
                 "https://e7.pngegg.com/pngimages/230/8/png-clipart-birds-birds-wild-animals.png",
                 "Alien",
-                " scroll bars",
-                numbYetSeen = 1
+                " scroll bars"
             ),
             Conversation(
                 "https://w7.pngwing.com/pngs/667/420/png-transparent-hummingbird-watercolor-painting-visual-arts-birds-blue-animals-fauna-thumbnail.png",
                 "Dog",
-                " it without inflating an XML layout",
-                numbYetSeen = 10
+                " it without inflating an XML layout"
             ),
             Conversation(
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_IhzSptgGR9RtLmh72hqvZw7igitwYuML6fC8iFpi78MX51pG0jZaQcpjcLfC3XZ-Ulc&usqp=CAU",

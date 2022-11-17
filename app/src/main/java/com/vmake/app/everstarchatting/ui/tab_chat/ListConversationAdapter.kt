@@ -20,6 +20,7 @@ import com.vmake.app.everstarchatting.repository.conversation.model.Conversation
 
 interface ImplListMessageAdapter {
     fun onClickItem(position: Int)
+    fun onClickDelete(position: Int)
 }
 
 class ListConversationAdapter private constructor(private val adapterListFriend: ListFriendAdapter) :
@@ -43,7 +44,12 @@ class ListConversationAdapter private constructor(private val adapterListFriend:
 
             fun bindData(position: Int, model: Conversation, action: ImplListMessageAdapter?) {
                 action?.let {
-                    binding.root.setOnClickListener { action.onClickItem(position) }
+                    binding.root.setOnClickListener { action.onClickItem(adapterPosition - 1) }
+                    binding.bottomWrapperRightDelete.setOnClickListener {
+                        action.onClickDelete(
+                            adapterPosition - 1
+                        )
+                    }
                 }
                 binding.tvName.text = model.getName()
                 binding.tvTime.text =

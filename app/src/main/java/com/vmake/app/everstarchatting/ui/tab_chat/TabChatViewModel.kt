@@ -76,6 +76,12 @@ class TabChatViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
+    fun removeConversationByPos(idx: Int) = _fetchListConversationViewState.postValue(
+        ViewState(ViewStatus.Success, getDataListConversation().toMutableList().apply {
+            removeAt(idx)
+        })
+    )
+
     // todo update Message
 
     fun updateMessage(message: Message?) {

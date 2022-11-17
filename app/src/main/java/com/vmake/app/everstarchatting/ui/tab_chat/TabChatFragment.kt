@@ -83,6 +83,10 @@ class TabChatFragment : BaseFragment<FragmentTabChatBinding>() {
                     }
                     tabChatViewModel.refreshNumbYetSeenConversationByPos(position)
                 }
+
+                override fun onClickDelete(position: Int) {
+                    tabChatViewModel.removeConversationByPos(position)
+                }
             }
         )
         rcvChatList.layoutManager =

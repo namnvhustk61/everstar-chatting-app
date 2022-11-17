@@ -11,7 +11,8 @@ data class Message(
     val userName: String,
     val messageContent: String,
     val roomName: String,
-    var viewType: Int
+    var viewType: Int,
+    var urlAvatar: String? = null,
 ) {
     companion object {
         fun fromJson(json: String?): Message? {

@@ -11,6 +11,7 @@
     <dimen name="size_icon_tiny">20dp</dimen>
     <dimen name="size_icon">24dp</dimen>
     <dimen name="size_icon_medium">32dp</dimen>
+    <dimen name="size_icon_medium_greater">38dp</dimen>
     <dimen name="size_icon_large">48dp</dimen>
     <dimen name="size_icon_big">64dp</dimen>
     <dimen name="size_image_view">100dp</dimen>

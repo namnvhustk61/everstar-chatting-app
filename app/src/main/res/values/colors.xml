@@ -22,5 +22,7 @@
     <color name="text_gray_light">#ACACAC</color>
     <color name="text_white">#FFFFFF</color>
 
+    <color name="color_green">#4D9850</color>
+    <color name="color_blue">#0385EB</color>
 
 </resources>

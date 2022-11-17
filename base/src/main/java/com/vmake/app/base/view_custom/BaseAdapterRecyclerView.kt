@@ -34,6 +34,10 @@ abstract class BaseAdapterRecyclerView<T> :
         }
     }
 
+    open fun onDataUpdate() {
+
+    }
+
     fun getListData() = data
 
     fun getDataItem(position: Int) = data[position]
@@ -43,6 +47,7 @@ abstract class BaseAdapterRecyclerView<T> :
         diffSet(data.toMutableList(), data.apply {
             clear()
             addAll(list)
+            onDataUpdate()
         })
         notifyDataSetChanged()
         callBack?.run()
@@ -52,8 +57,10 @@ abstract class BaseAdapterRecyclerView<T> :
         if (list.isNullOrEmpty()) return
         val startIndex = data.size
 
-        diffSet(data, data.apply { addAll(list) })
-
+        diffSet(data, data.apply {
+            addAll(list)
+            onDataUpdate()
+        })
         notifyItemRangeInserted(startIndex, list.size)
         callBack?.run()
     }
@@ -61,8 +68,12 @@ abstract class BaseAdapterRecyclerView<T> :
     fun add(list: T, callBack: Runnable? = null) {
         if (list == null) return
 
-        data.apply { add(list) }
-        notifyItemInserted(data.size -1)
+        diffSet(data.toMutableList(), data.apply {
+            add(list)
+            onDataUpdate()
+        })
+
+        notifyItemInserted(data.size - 1)
         callBack?.run()
     }
 
@@ -70,7 +81,10 @@ abstract class BaseAdapterRecyclerView<T> :
         if (position >= data.size) {
             return
         }
-        diffSet(data.toMutableList(), data.apply { removeAt(position) })
+        diffSet(data.toMutableList(), data.apply {
+            removeAt(position)
+            onDataUpdate()
+        })
         notifyItemRemoved(position)
     }
 
@@ -83,6 +97,9 @@ abstract class BaseAdapterRecyclerView<T> :
         diffSet(oldList = data, newList = list)
         data.clear()
         data.addAll(list)
+        onDataUpdate()
+        notifyDataSetChanged()
+
         callBack?.run()
     }
 
@@ -95,6 +112,7 @@ abstract class BaseAdapterRecyclerView<T> :
         clearData()
         notifyDataSetChanged()
         callBack?.run()
+        onDataUpdate()
     }
 
     private fun diffSet(oldList: List<T>, newList: List<T>) {

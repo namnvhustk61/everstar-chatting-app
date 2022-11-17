@@ -2,12 +2,14 @@ package com.vmake.app.base.view_custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -38,7 +40,7 @@ public class ImageViewRadius extends AppCompatImageView {
         if (attrs != null) {
             obtain(context, attrs);
         }
-
+        setupBackground();
     }
 
     @SuppressLint("CustomViewStyleable")
@@ -62,6 +64,20 @@ public class ImageViewRadius extends AppCompatImageView {
         ta.recycle();
     }
 
+    private void setupBackground() {
+        if (getBackground() instanceof GradientDrawable) {
+            getBackground().mutate();
+            ((GradientDrawable)getBackground()).setCornerRadii(radii);
+
+        } else if (getBackground() instanceof ColorDrawable) {
+            getBackground().mutate();
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setColor(ColorStateList.valueOf(((ColorDrawable) getBackground()).getColor()));
+            drawable.setCornerRadii(radii);
+            setBackground(drawable);
+        }
+
+    }
 
     @SuppressLint("DrawAllocation")
     @Override

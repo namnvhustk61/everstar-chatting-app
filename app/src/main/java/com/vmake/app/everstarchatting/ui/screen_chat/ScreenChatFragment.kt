@@ -1,6 +1,9 @@
 package com.vmake.app.everstarchatting.ui.screen_chat
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vmake.app.base.helper.getMyAdapter
@@ -27,7 +30,27 @@ class ScreenChatFragment : BaseFragment<FragmentScreenChatBinding>() {
     override fun FragmentScreenChatBinding.setupView() {
         getArguments()
         leave.setOnClickListener { finish() }
-        send.setOnClickListener { sendMessage() }
+        imgMic.setOnClickListener { }
+        imgSend.setOnClickListener { sendMessage() }
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (editText.text.isNullOrEmpty()) {
+                    imgMic.visibility = View.VISIBLE
+                    imgSend.visibility = View.INVISIBLE
+                } else {
+                    imgMic.visibility = View.INVISIBLE
+                    imgSend.visibility = View.VISIBLE
+                }
+            }
+        })
         setupRecycle()
     }
 
@@ -38,6 +61,7 @@ class ScreenChatFragment : BaseFragment<FragmentScreenChatBinding>() {
                     it.data?.let { message ->
                         addItemToRecyclerView(message.apply {
                             viewType = MessageType.CHAT_PARTNER.index
+                            this.urlAvatar = this@ScreenChatFragment.urlAvatar
                         })
                     }
                 }
@@ -77,6 +101,8 @@ class ScreenChatFragment : BaseFragment<FragmentScreenChatBinding>() {
         socketViewModel.sendSocket(message.toString())
 
         addItemToRecyclerView(message)
+
+        binding?.editText?.setText("")
     }
 
     private fun addItemToRecyclerView(message: Message) {

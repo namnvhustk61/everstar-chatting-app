@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.vmake.app.base.R;
 
-public class MyTextViewRadius extends MyTextView{
+public class MyTextViewRadius extends MyTextView {
 
     private float[] radii = new float[]{0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
 
@@ -54,7 +54,7 @@ public class MyTextViewRadius extends MyTextView{
         bgColor = ta.getColor(R.styleable.RadiusLayout_backgroundColor, Color.WHITE);
         if (ta.hasValue(R.styleable.RadiusLayout_radius)) {
             float radius = ta.getDimensionPixelSize(R.styleable.RadiusLayout_radius, convertDp(0f));
-            for(int i = 0; i< radii.length; i++){
+            for (int i = 0; i < radii.length; i++) {
                 radii[i] = radius;
             }
 
@@ -68,7 +68,7 @@ public class MyTextViewRadius extends MyTextView{
         strokeWidth = ta.getDimensionPixelSize(R.styleable.RadiusLayout_strokeWidth, 0);
         strokeColor = ta.getColor(R.styleable.RadiusLayout_strokeColor, Color.TRANSPARENT);
 
-        if(!ta.getBoolean(R.styleable.RadiusLayout_offStateOnPressed, false)){
+        if (!ta.getBoolean(R.styleable.RadiusLayout_offStateOnPressed, false)) {
             setStateOnPressed();
         }
         ta.recycle();
@@ -77,8 +77,8 @@ public class MyTextViewRadius extends MyTextView{
     private void setupBackground() {
         if (getBackground() instanceof GradientDrawable) {
             getBackground().mutate();
-            ((GradientDrawable)getBackground()).setCornerRadii(radii);
-            ((GradientDrawable)getBackground()).setStroke(strokeWidth, strokeColor);
+            ((GradientDrawable) getBackground()).setCornerRadii(radii);
+            ((GradientDrawable) getBackground()).setStroke(strokeWidth, strokeColor);
 
         } else if (getBackground() instanceof ColorDrawable) {
             getBackground().mutate();
@@ -88,7 +88,7 @@ public class MyTextViewRadius extends MyTextView{
             drawable.setStroke(strokeWidth, strokeColor);
             setBackground(drawable);
         }
-        if(getBackground() == null && strokeColor != Color.TRANSPARENT){
+        if (getBackground() == null && strokeColor != Color.TRANSPARENT) {
             GradientDrawable drawable = new GradientDrawable();
             drawable.setCornerRadii(radii);
             drawable.setStroke(strokeWidth, strokeColor);
@@ -97,13 +97,13 @@ public class MyTextViewRadius extends MyTextView{
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void setStateOnPressed(){
+    public void setStateOnPressed() {
 //        setOnClickListener(new OnClickListener() {@Override public void onClick(View v) { }});
 
         setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    if(v.getBackground() == null){
+                    if (v.getBackground() == null) {
                         GradientDrawable drawable = new GradientDrawable();
                         drawable.setCornerRadius(15f);
                         v.setBackground(drawable);
@@ -113,8 +113,9 @@ public class MyTextViewRadius extends MyTextView{
                     v.invalidate();
                     break;
                 }
-                case MotionEvent.ACTION_UP: case MotionEvent.ACTION_CANCEL: {
-                    if(v.getBackground() == null){
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL: {
+                    if (v.getBackground() == null) {
                         GradientDrawable drawable = new GradientDrawable();
                         drawable.setCornerRadius(10f);
                         v.setBackground(drawable);
@@ -140,12 +141,19 @@ public class MyTextViewRadius extends MyTextView{
         setupBackground();
     }
 
-    public void setRadii(float radii){
+    public void setRadii(float radii) {
         this.radii = new float[]{radii, radii, radii, radii, radii, radii, radii, radii};
         setupBackground();
     }
 
+    public void setRadii(float topLeft, float topRight, float bottomLeft, float bottomRight) {
+        this.radii = new float[]{topLeft, topLeft, topRight, topRight, bottomRight, bottomRight, bottomLeft, bottomLeft};
+        setupBackground();
+    }
 
+    public float getRadius() {
+        return radii[0];
+    }
 
     public void setStrokeWidth(int width, int strokeColor) {
         this.strokeWidth = width;
@@ -155,7 +163,7 @@ public class MyTextViewRadius extends MyTextView{
 
     private int convertDp(float dp) {
 
-        return  Math.round((dp * getResources().getDisplayMetrics().density));
+        return Math.round((dp * getResources().getDisplayMetrics().density));
     }
 
     private int getColorResource(Context context, @ColorRes int id) {

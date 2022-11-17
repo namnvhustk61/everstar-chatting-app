@@ -4,109 +4,165 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    >
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="14dp"
-        app:layout_constraintBottom_toTopOf="@id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topbar" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/chat_edittext_bg"
-        android:ems="10"
-        android:hint="send message.."
-        android:inputType="text"
-        android:paddingStart="15dp"
-        android:paddingTop="3dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="5dp"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/send"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/send"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_send_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_tiny"
+        android:paddingVertical="@dimen/padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/leave"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="@dimen/size_icon_medium"
+            android:layout_height="@dimen/size_icon_medium"
             android:src="@drawable/ic_back" />
+
         <ImageView
             android:id="@+id/imgAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:padding="@dimen/padding_tiny"
-            android:src="@drawable/background_circle_gray" />
+            android:layout_width="@dimen/size_icon_large"
+            android:layout_height="@dimen/size_icon_large"
+            android:layout_marginStart="@dimen/padding_tiny"
+            android:background="@drawable/background_circle_gray"
+            android:padding="@dimen/padding_tiny" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.vmake.app.base.view_custom.MyTextView
                 android:id="@+id/partnerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_gravity="start"
+                android:layout_marginStart="@dimen/padding"
                 android:gravity="center"
-                android:text="username"
-                android:visibility="visible" />
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/size_text_normal"
+                android:textStyle="bold"
+                android:visibility="visible"
+                tools:text="username" />
 
-            <TextView
+            <com.vmake.app.base.view_custom.MyTextView
                 android:id="@+id/typing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="7dp"
                 android:layout_gravity="start"
-                android:text="Typing........"
-                android:textSize="12dp"
-                android:visibility="invisible" />
+                android:layout_marginStart="@dimen/padding"
+                android:text="online"
+                android:textColor="@color/color_green"
+                android:textSize="@dimen/size_text"
+                android:textStyle="italic" />
 
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="@dimen/size_icon_medium"
+            android:layout_height="@dimen/size_icon_medium"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_video_call" />
+
+        <Space
+            android:layout_width="@dimen/padding_tiny"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="@dimen/size_icon_medium"
+            android:layout_height="@dimen/size_icon_medium"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_phone" />
+
+        <Space
+            android:layout_width="@dimen/padding_tiny"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/llEdt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
+
+    <com.vmake.app.base.view_custom.LinearLayoutRadius
+        android:id="@+id/llEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_great"
+        android:layout_marginVertical="@dimen/padding_medium"
+        android:background="@color/white"
+        android:elevation="0.2dp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_tiny"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:radius="@dimen/size_icon">
+
+        <com.vmake.app.base.view_custom.ImageViewRadius
+            android:layout_width="@dimen/size_icon_medium"
+            android:layout_height="@dimen/size_icon_medium"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_link_file"
+            app:radius="@dimen/size_icon_big" />
+
+        <com.vmake.app.base.view_custom.ImageViewRadius
+            android:layout_width="@dimen/padding"
+            android:layout_height="@dimen/padding"
+            android:rotation="90"
+            android:src="@drawable/ic_horizontal_line"
+
+            />
+
+        <com.vmake.app.base.view_custom.MyEditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/chat_edittext_bg"
+            android:hint="Type message..."
+            android:inputType="text"
+            android:paddingHorizontal="@dimen/padding_tiny"
+            android:textSize="@dimen/size_text_normal" />
+
+        <FrameLayout
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.vmake.app.base.view_custom.ImageViewRadius
+                android:id="@+id/imgSend"
+                android:layout_width="@dimen/size_icon_medium_greater"
+                android:layout_height="@dimen/size_icon_medium_greater"
+                android:background="@color/color_blue"
+                android:padding="@dimen/padding_tiny"
+                android:src="@drawable/ic_send_24"
+                android:visibility="invisible"
+                app:radius="@dimen/size_icon_big" />
+
+            <com.vmake.app.base.view_custom.ImageViewRadius
+                android:id="@+id/imgMic"
+                android:layout_width="@dimen/size_icon_medium_greater"
+                android:layout_height="@dimen/size_icon_medium_greater"
+                android:background="@color/color_blue"
+                android:padding="@dimen/padding_tiny"
+                android:src="@drawable/ic_mic_none"
+                app:radius="@dimen/size_icon_big" />
+        </FrameLayout>
+
+    </com.vmake.app.base.view_custom.LinearLayoutRadius>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

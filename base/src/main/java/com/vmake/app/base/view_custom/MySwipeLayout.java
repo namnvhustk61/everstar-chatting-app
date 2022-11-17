@@ -3,15 +3,10 @@ package com.vmake.app.base.view_custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
@@ -83,6 +78,9 @@ public class MySwipeLayout extends FrameLayout {
         PullOut
     }
 
+    private Drawable backgroundEffectClick;
+
+
     public MySwipeLayout(Context context) {
         this(context, null);
     }
@@ -102,6 +100,9 @@ public class MySwipeLayout extends FrameLayout {
         mEdgeSwipesOffset[DragEdge.Right.ordinal()] = a.getDimension(R.styleable.SwipeLayout_rightEdgeSwipeOffset, 0);
         mEdgeSwipesOffset[DragEdge.Top.ordinal()] = a.getDimension(R.styleable.SwipeLayout_topEdgeSwipeOffset, 0);
         mEdgeSwipesOffset[DragEdge.Bottom.ordinal()] = a.getDimension(R.styleable.SwipeLayout_bottomEdgeSwipeOffset, 0);
+
+        backgroundEffectClick = a.getDrawable(R.styleable.SwipeLayout_backgroundEffectClick);
+
         setClickToClose(a.getBoolean(R.styleable.SwipeLayout_clickToClose, mClickToClose));
 
         if ((dragEdgeChoices & DRAG_LEFT) == DRAG_LEFT) {
@@ -1107,23 +1108,27 @@ public class MySwipeLayout extends FrameLayout {
 
     class SwipeDetector extends GestureDetector.SimpleOnGestureListener {
         private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             if (mClickToClose && isTouchOnSurface(e)) {
                 close();
             }
-            Drawable old = getSurfaceView().getBackground();
-            getSurfaceView().setBackgroundResource(R.drawable.background_white_radius_blue);
+            if (backgroundEffectClick != null) {
+                Drawable old = getSurfaceView().getBackground();
+                getSurfaceView().setBackground(backgroundEffectClick);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSurfaceView().setBackground(old);
+                    }
+                }, 300);
+            }
+
 
             if (clickListener != null) {
                 clickListener.onClick(MySwipeLayout.this);
             }
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getSurfaceView().setBackground(old);
-                }
-            }, 1000);
             return super.onSingleTapUp(e);
         }
 

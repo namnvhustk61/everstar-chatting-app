@@ -76,9 +76,9 @@ class SocketClientHelper private constructor() {
     suspend fun send(message: String) {
         runInBackground {
             try {
-                socketOutput!!.write(message.toByteArray())
+                socketOutput?.write(message.toByteArray())
             } catch (e: IOException) {
-                if (listener != null) listener!!.onDisconnect(socket, e.message)
+                 listener?.onDisconnect(socket, e.message)
             }
         }
     }

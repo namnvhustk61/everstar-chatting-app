@@ -91,18 +91,21 @@ class ScreenChatFragment : BaseFragment<FragmentScreenChatBinding>() {
     private fun FragmentScreenChatBinding.setupRecycle() {
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = ChatRoomAdapter.newInstance()
+        recyclerView.adapter = ChatRoomAdapter.newInstance(lifecycle)
     }
 
     private fun sendMessage() {
         val content = binding?.editText?.text.toString()
         val message = Message(user ?: "", content, user ?: "", MessageType.CHAT_MINE.index)
 
+        message.contentType = content.length
+
         socketViewModel.sendSocket(message.toString())
 
         addItemToRecyclerView(message)
 
         binding?.editText?.setText("")
+        hideKeyboard()
     }
 
     private fun addItemToRecyclerView(message: Message) {

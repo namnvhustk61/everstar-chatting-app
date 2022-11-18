@@ -4,7 +4,7 @@ import com.google.gson.Gson
 
 
 enum class MessageType(val index: Int) {
-    CHAT_MINE(0), CHAT_PARTNER(1);
+    CHAT_MINE(10), CHAT_PARTNER(20);
 }
 
 data class Message(
@@ -13,6 +13,7 @@ data class Message(
     val roomName: String,
     var viewType: Int,
     var urlAvatar: String? = null,
+    var contentType: Int = 0 // 0: Text, 1: Video horizontal, 2: Video vertical 3: Image
 ) {
     companion object {
         fun fromJson(json: String?): Message? {

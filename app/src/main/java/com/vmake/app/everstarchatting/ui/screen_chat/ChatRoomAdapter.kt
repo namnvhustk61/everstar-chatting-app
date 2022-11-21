@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.vmake.app.base.helper.detectUrls
 import com.vmake.app.base.helper.loadImage
 import com.vmake.app.base.view_custom.BaseAdapterRecyclerView
 import com.vmake.app.base.view_custom.BaseDiffCallBack

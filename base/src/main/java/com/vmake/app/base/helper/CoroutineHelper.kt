@@ -22,6 +22,8 @@ fun getIOScope(): CoroutineScope {
 }
 
 fun mainLaunch(block: suspend CoroutineScope.() -> Unit) = getMainScope().launch { block() }
+fun backgroundLaunch(block: suspend CoroutineScope.() -> Unit) = getBackgroundScope().launch { block() }
+fun ioLaunch(block: suspend CoroutineScope.() -> Unit) = getIOScope().launch { block() }
 
 fun AndroidViewModel.launch(block: suspend CoroutineScope.() -> Unit) =
     viewModelScope.launch { block() }

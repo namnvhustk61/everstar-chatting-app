@@ -26,4 +26,19 @@ object NetworkUtil {
 
         return result
     }
+
+    fun checkSpeedDownload(context: Context): Int {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val nc = cm.getNetworkCapabilities(cm.activeNetwork)
+        val downSpeed = nc?.linkDownstreamBandwidthKbps
+        return downSpeed ?: 0
+    }
+
+    fun checkSpeedUpload(context: Context): Int {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val nc = cm.getNetworkCapabilities(cm.activeNetwork)
+        val upSpeed = nc?.linkUpstreamBandwidthKbps
+        return upSpeed ?: 0
+    }
+
 }

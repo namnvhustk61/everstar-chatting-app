@@ -2,12 +2,9 @@ package com.vmake.app.base.helper
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.*
 
 fun getMainScope(): CoroutineScope {
     return CoroutineScope(Dispatchers.Main)
@@ -22,7 +19,9 @@ fun getIOScope(): CoroutineScope {
 }
 
 fun mainLaunch(block: suspend CoroutineScope.() -> Unit) = getMainScope().launch { block() }
-fun backgroundLaunch(block: suspend CoroutineScope.() -> Unit) = getBackgroundScope().launch { block() }
+fun backgroundLaunch(block: suspend CoroutineScope.() -> Unit) =
+    getBackgroundScope().launch { block() }
+
 fun ioLaunch(block: suspend CoroutineScope.() -> Unit) = getIOScope().launch { block() }
 
 fun AndroidViewModel.launch(block: suspend CoroutineScope.() -> Unit) =
@@ -39,3 +38,13 @@ suspend fun <T> runInIO(block: suspend CoroutineScope.() -> T) =
 
 suspend fun <T> runInMain(block: suspend CoroutineScope.() -> T) =
     withContext(Dispatchers.Main) { block() }
+
+suspend inline fun loop(
+    timeMillis: Long,
+    crossinline block: suspend CoroutineScope.() -> Boolean
+) =
+    withContext(Dispatchers.Default) {
+        while (block()) {
+            delay(timeMillis)
+        }
+    }

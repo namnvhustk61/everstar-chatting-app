@@ -3,11 +3,13 @@ package com.vmake.app.everstarchatting.ui
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+
 import com.vmake.app.base.data.SingleLiveEvent
 import com.vmake.app.base.helper.filter
 import com.vmake.app.base.helper.launch
+import com.vmake.app.base.helper.loop
 import com.vmake.app.base.ui.BaseViewModel
+import com.vmake.app.base.utils.NetworkUtil
 import com.vmake.app.everstarchatting.helper.ClientCallback
 import com.vmake.app.everstarchatting.helper.SocketClientHelper
 import com.vmake.app.everstarchatting.repository.message.model.Message
@@ -17,11 +19,16 @@ import java.net.Socket
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
     private val socketClientHelper = SocketClientHelper.newInstance()
+    private val networkUtil = NetworkUtil
 
     private val _listerSocketStatus = SingleLiveEvent<SocketModel>()
     val listerSocketStatus: LiveData<SocketModel> = _listerSocketStatus
 
-    fun getListerSocketOnMessageForConversation(user: String): LiveData<SocketModel>{
+    private val _listerSpeedInternet = MutableLiveData<Int>()
+    val listenSpeedInternet: LiveData<Int> = _listerSpeedInternet
+
+    // todo socket
+    fun getListerSocketOnMessageForConversation(user: String): LiveData<SocketModel> {
         return listerSocketStatus.filter { socketModel ->
             socketModel?.data?.userName == user
         }
@@ -64,9 +71,25 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    fun reConnect() {
+        launch {
+            socketClientHelper.reConnect()
+        }
+    }
+
     fun disConnect() {
         launch {
             socketClientHelper.disconnect()
+        }
+    }
+
+    // todo follow speed internet
+    fun followSpeedInternet() {
+        launch {
+            loop(2000) {
+                _listerSpeedInternet.postValue(networkUtil.checkSpeedDownload(getContext()))
+                true
+            }
         }
     }
 }

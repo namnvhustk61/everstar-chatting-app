@@ -2,6 +2,7 @@ package com.vmake.app.everstarchatting.ui.screen_chat
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -97,7 +98,7 @@ class ScreenChatFragment : BaseFragment<FragmentScreenChatBinding>() {
     private fun sendMessage() {
         val content = binding?.editText?.text.toString()
         val message = Message(user ?: "", content, user ?: "", MessageType.CHAT_MINE.index)
-
+        Log.d("_SEND_", content)
         message.contentType = content.length
 
         socketViewModel.sendSocket(message.toString())
